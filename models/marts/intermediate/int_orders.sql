@@ -1,3 +1,5 @@
+{{ config(alias='int_orders', materialized='view') }}
+
 with orders as (
     select * from {{ ref('stg_orders') }}
 ),
