@@ -11,7 +11,7 @@
 
 with source_data as (
     select 
-        '{{ env_var("DBT_FIRST_ENV_VAR", "no_value") }}' as env_var_value
+        '{{ env_var("DBT_FIRST_ENV_VAR", "no_value") }}' as id
 )
 
 select *
