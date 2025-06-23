@@ -1,59 +1,47 @@
-version: 2
-
 models:
   - name: fct_orders
-    description: "Fact table containing finalized order data"
-    contract:
-      enforced: true
+    latest_version: 1
+    access: public
+    config:
+      contract:
+        enforced: true
     columns:
       - name: order_id
-        description: "Unique identifier for each order"
-        data_type: string
-      
+        data_type: varchar
       - name: location_id
-        description: "ID of the store where the order was placed"
-        data_type: string
-      
+        data_type: varchar
       - name: customer_id
-        description: "ID of the customer who placed the order"
-        data_type: string
-
+        data_type: varchar
       - name: order_total
-        description: "Total amount of the order"
-        data_type: float64
-
+        data_type: number
       - name: tax_paid
-        description: "Tax paid for the order"
-        data_type: float64
-
+        data_type: number
       - name: ordered_at
-        description: "Timestamp of when the order was placed"
-        data_type: timestamp
-
+        data_type: timestamp_ntz
       - name: customer_name
-        description: "Full name of the customer"
-        data_type: string
-
+        data_type: varchar
       - name: location_name
-        description: "Name of the store"
-        data_type: string
-
+        data_type: varchar
       - name: tax_rate
-        description: "Applicable tax rate at the store"
-        data_type: float64
-
+        data_type: number
       - name: location_opened_at
-        description: "Date when the store was opened"
-        data_type: timestamp
-
+        data_type: timestamp_ntz
       - name: ordered_month
-        description: "Month of the order date"
-        data_type: int64
-
+        data_type: number
       - name: ordered_day
-        description: "Day of the order date"
-        data_type: int64
-
+        data_type: number
       - name: ordered_year
-        description: "Year of the order date"
-        data_type: int64
+        data_type: number
+    versions: ###Add versioning section defining each version and listing changes to contract
+      - v: 1
+          ##Matches above! Nothing more needed
+        config:
+            alias: fct_orders
+      - v: 2
+        columns:
+          - name: order_amount ##v2 Adds in new column name and date type change
+            data_type: number
+          - name: location_opened_at
+            data_type: date
+          - include: all #Includes all other fields
+            exclude: [order_total] #But removes the old name of order_total
