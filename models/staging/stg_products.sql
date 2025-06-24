@@ -2,7 +2,7 @@ with
 
 source as (
 
-    select * from {{ source('jaffle_shop', 'products') }}
+    select * from {{ source('jaffle_shop', 'supplies') }}
 
 ),
 
@@ -11,21 +11,18 @@ renamed as (
     select
 
         ----------  ids
+        {{ dbt_utils.generate_surrogate_key(['id', 'sku']) }} as supply_uuid,
+        id as supply_id,
         sku as product_id,
 
         ---------- text
-        name as product_name,
-        type as product_type,
-        description as product_description,
-
+        name as supply_name,
 
         ---------- numerics
-        (price / 100.0) as product_price,
+        (cost / 100.0) as supply_cost,
 
         ---------- booleans
-        coalesce(type = 'jaffle', false) as is_food_item,
-
-        coalesce(type = 'beverage', false) as is_drink_item
+        perishable as is_perishable_supply
 
     from source
 
