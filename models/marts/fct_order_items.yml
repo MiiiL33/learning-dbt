@@ -1,47 +1,41 @@
-version: 2
-
 models:
   - name: fct_order_items
-    description: "Fact table for order items"
+    access: public
+    group: finance
     config:
       contract:
         enforced: true
     columns:
       - name: order_item_id
-        description: "Unique identifier for the order item"
-        data_type: string
+        data_type: varchar
         constraints:
           - type: not_null
-
       - name: order_id
-        data_type: string
-
+        data_type: varchar
+        constraints:
+          - type: not_null
       - name: product_id
-        data_type: string
-
+        data_type: varchar
       - name: location_id
-        data_type: string
-
+        data_type: varchar
       - name: customer_id
-        data_type: string
-
+        data_type: varchar
       - name: order_total
-        data_type: float64
-
+        data_type: number
       - name: tax_paid
-        data_type: float64
-
+        data_type: number
       - name: ordered_at
-        data_type: timestamp
-
+        data_type: timestamp_ntz
       - name: customer_name
-        data_type: string
-
+        data_type: varchar
       - name: location_name
-        data_type: string
-
+        data_type: varchar
+        tests:
+          - accepted_values:
+              values:
+                - "Brooklyn"
+                - "Philadelphia"
       - name: tax_rate
-        data_type: float64
-
+        data_type: number
       - name: location_opened_at
-        data_type: timestamp
+        data_type: timestamp_ntz
