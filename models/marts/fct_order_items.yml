@@ -7,35 +7,35 @@ models:
         enforced: true
     columns:
       - name: order_item_id
-        data_type: varchar
+        data_type: string
         constraints:
           - type: not_null
       - name: order_id
-        data_type: varchar
+        data_type: string
         constraints:
           - type: not_null
       - name: product_id
-        data_type: varchar
+        data_type: string
       - name: location_id
-        data_type: varchar
+        data_type: string
       - name: customer_id
-        data_type: varchar
+        data_type: string
       - name: order_total
-        data_type: number
+        data_type: integer
       - name: tax_paid
-        data_type: number
+        data_type: integer
       - name: ordered_at
-        data_type: timestamp_ntz
+        data_type: timestamp
       - name: customer_name
-        data_type: varchar
+        data_type: string
       - name: location_name
-        data_type: varchar
+        data_type: string
         tests:
           - accepted_values:
               values:
                 - "Brooklyn"
                 - "Philadelphia"
       - name: tax_rate
-        data_type: number
+        data_type: integer
       - name: location_opened_at
-        data_type: timestamp_ntz
+        data_type: timestamp

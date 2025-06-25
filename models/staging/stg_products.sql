@@ -1,31 +1,15 @@
-with
-
-source as (
-
-    select * from {{ source('jaffle_shop', 'supplies') }}
-
+with source as (
+    select * from {{ source('jaffle_shop', 'products') }}
 ),
 
 renamed as (
-
     select
-
-        ----------  ids
-        {{ dbt_utils.generate_surrogate_key(['id', 'sku']) }} as supply_uuid,
-        id as supply_id,
         sku as product_id,
-
-        ---------- text
-        name as supply_name,
-
-        ---------- numerics
-        (cost / 100.0) as supply_cost,
-
-        ---------- booleans
-        perishable as is_perishable_supply
-
+        name,
+        type,
+        price,
+        description
     from source
-
 )
 
 select * from renamed

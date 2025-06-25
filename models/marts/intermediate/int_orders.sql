@@ -18,7 +18,7 @@ joined as (
         orders.order_total,
         orders.tax_paid,
         orders.ordered_at,
-        customers.customer_name,
+        customers.name as customer_name,
         locations.location_name,
         locations.tax_rate,
         locations.location_opened_at
@@ -26,7 +26,7 @@ joined as (
     from 
        orders 
         left join customers 
-            on orders.customer_id = customers.customer_id
+            on orders.customer_id = customers.name
         left join locations 
             on orders.location_id = locations.location_id    
 )
