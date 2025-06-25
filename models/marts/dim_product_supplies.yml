@@ -7,13 +7,13 @@ models:
         enforced: true
     columns:
       - name: product_name
-        data_type: varchar
+        data_type: string
         constraints:
           - type: not_null
         tests:
           - unique
       - name: product_type
-        data_type: varchar
+        data_type: string
         constraints:
           - type: not_null
         tests:
@@ -22,19 +22,19 @@ models:
                 - "jaffle"
                 - "beverage"
       - name: product_description
-        data_type: varchar
+        data_type: string
       - name: product_price
-        data_type: number
+        data_type: integer
         constraints:
           - type: not_null
       - name: is_food_item
         data_type: boolean
       - name: supply_cost
-        data_type: number
+        data_type: float64
       - name: is_drink_item
         data_type: boolean
       - name: product_id
-        data_type: varchar
+        data_type: string
         constraints:
           - type: not_null
         tests:
