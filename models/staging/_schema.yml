@@ -2,17 +2,25 @@ models:
   - name: stg_customers
     description: staging model for customers source table.
     columns:
-      - name: customer_id
+      - name: id
         tests:
           - unique
           - not_null
+      - name: name
   - name: stg_locations
     description: staging model for jaffle shop locations
     columns:
       - name: location_id
+        description: Unique identifier for the location
         tests:
           - unique
           - not_null
+      - name: location_name
+        description: Name of the location
+      - name: tax_rate
+        description: Tax rate applied at this location
+      - name: location_opened_at
+        description: Timestamp when the location opened
   - name: stg_order_items
     description: staging model for order items source table
     access: protected
@@ -20,16 +28,32 @@ models:
       group: product
     columns:
       - name: order_item_id
+        description: Unique identifier for each item in an order
         tests:
           - unique
           - not_null
+      - name: order_id
+        description: ID of the order this item belongs to
+      - name: product_id
+        description: SKU or product identifier
   - name: stg_orders
     description: staging model for orders source table
     columns:
       - name: order_id
+        description: "Primary key for orders"
         tests:
           - unique
           - not_null
+      - name: location_id
+        description: "Foreign key to location/store"
+      - name: customer_id
+        description: "Foreign key to customer"
+      - name: order_total
+        description: "Total amount of the order"
+      - name: tax_paid
+        description: "Tax paid on the order"
+      - name: ordered_at
+        description: "Date when the order was placed, truncated to day"
   - name: stg_products
     description: staging model for products source table. list of products.
     access: private
@@ -37,15 +61,39 @@ models:
       group: product
     columns:
       - name: product_id
+        description: "The unique SKU identifier for the product"
         tests:
           - unique
           - not_null
+      - name: name
+        description: "Name of the product"
+      - name: type
+        description: "Type or category of the product"
+      - name: price
+        description: "Price of the product in integer format"
+      - name: description
+        description: "Product description text"
   - name: stg_supplies
     description: staging model for supplies source table.
     access: protected
     config:
       group: product
     columns:
+      - name: supply_uuid
+        description: "Surrogate key generated from id and sku"
+        tests:
+          - unique
+          - not_null
       - name: supply_id
+        description: "Original supply id"
         tests:
           - not_null
+      - name: product_id
+        description: "SKU for the product supplied"
+      - name: supply_name
+        description: "Name of the supply"
+      - name: supply_cost
+        description: "Cost of the supply, normalized"
+      - name: is_perishable_supply
+        description: "Indicates if the supply is perishable"
+
